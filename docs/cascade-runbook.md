@@ -44,7 +44,7 @@ Repeat the SSH run with `--model /workspace/SmolLM2-1.7B-Instruct` and a separat
 - v3.0 diagnostic: `results/cascade-network-v3-qwen-smoke-diagnostic.json` (stopped due to hidden pending requests and duplicate checklist growth).
 - v3.1 diagnostic: `results/cascade-network-v3_1-qwen-smoke.json` (inconsistent evidence coverage, duplicate rechecks, and response truncation).
 - v3.2 labeled diagnostic: `results/cascade-network-v3_2-qwen-labeled-smoke-diagnostic.json` (condition labels appeared in objection messages; do not use for causal comparisons).
-- v3.3 Qwen smoke: `results/cascade-network-v3_3-qwen-smoke.json` with analyzer outputs; no unsupported-objection cascade was observed, the generated paths were duplicate checks, and all authorized final proposals declined. See `docs/cascade-network-v3_3-pilot.md` for the descriptive results and limits.
+- v3.3 Qwen and SmolLM2 smokes: `results/cascade-network-v3_3-{qwen,smol}-smoke.json` with analyzer outputs; neither model generated a distinct unsupported-objection cascade. SmolLM2 produced many redundant checks in other conditions; Qwen declined every action, while SmolLM2 completed only the two unsupported-objection authorized episodes. These are small diagnostics, not inferential findings. See `docs/cascade-network-v3_3-pilot.md` for results and limits.
 - Literature: `docs/cascade-literature-review.md`.
 - Current research status: `docs/cascade-research.md`.
 
