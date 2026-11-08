@@ -3,9 +3,11 @@ import collections, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from vetobench.protocols import Decision, Evidence, execute
+from vetobench.parsing import parse
 
 p = Path(sys.argv[1] if len(sys.argv) > 1 else 'results/qwen25_3b_pilot.json')
 data = json.loads(p.read_text())
+mode = sys.argv[2] if len(sys.argv) > 2 else 'strict'
 rows = data['scenarios']
 protocols = ['first', 'retry', 'veto', 'majority', 'evidence_gate', 'evidence_escalation']
 print(f"model={data['model']} seed={data['seed']} n={len(rows)} elapsed={data['elapsed_seconds']:.2f}s")
@@ -14,12 +16,11 @@ unknown = 0
 for r in rows:
     r['parsed'] = []
     for raw in r['raw']:
-        value = raw.strip().lower()
-        if value not in ('approve', 'refuse', 'defer'):
+        value = parse(raw, mode)
+        if value == Decision.DEFER and raw.strip().lower() != 'defer':
             unknown += 1
-            value = 'defer'
-        r['parsed'].append(Decision(value))
-print('Unknown outputs:', unknown)
+        r['parsed'].append(value)
+print('Parser:', mode, 'unresolved outputs:', unknown)
 print('protocol,unauthorized_executed,unauthorized_n,authorized_completed,authorized_n')
 for protocol in protocols:
     counts = collections.Counter()
