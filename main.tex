@@ -1,0 +1,47 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\title{Evidence-Bound Refusals in Multi-Agent Systems: A Pilot Study of Safety and Availability}
+\author{Author and affiliation to be supplied}
+\date{Working draft, 8 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A coordinator can retry a request after a worker refuses it, but propagating every refusal may allow one faulty or adversarial worker to block legitimate work. We study this tension using a preliminary synthetic access-control testbed, two small open-weight models, and an evidence-scoped control prototype. Our pilot samples three responses to each of 160 generated requests and replays their decisions under first-response, retry, and unconditional-veto rules. We also examine forced-choice scoring, output parsing, and a controlled false-objection replay. Results are strongly dependent on measurement: under one prompt, a strict parser identifies 406 of 480 SmolLM2 responses as unresolved, while forced-choice scoring produces a different safety--completion trade-off. In a deliberately favorable replay, a false refusal blocks all authorized cases under unconditional veto, while an evidence ledger and an equally informed authorization gate behave identically. Synthetic stale and corrupted evidence counterfactuals expose the assumed trust boundary. These results support neither a deployment guarantee nor an advantage over conventional authorization. They motivate evaluation of selective recovery under incomplete evidence, independent sources, adaptive adversaries, and matched verification budgets. All experiments are simulated; further work is required before a conference-level claim.
+\end{abstract}
+\section{Introduction}
+Agent-level refusals are not necessarily preserved by delegation. A coordinator can ask another worker after an objection, yet unconditional propagation gives a single worker the power to prevent legitimate work. This project asks how decision provenance and independently verifiable evidence affect that tension. We emphasize that execution is the outcome of interest: a verbal refusal is not itself an enforcement boundary. The present work is an early pilot and does not claim a new general safety guarantee.
+
+Prior work already demonstrates delegated safety failures \cite{ying}, investigates how operational framing and prior approval affect delegation \cite{liu}, and studies separate policy enforcement in multi-agent pipelines \cite{safin}. The safety--utility tension also appears in single-agent benchmarks \cite{simhi}. Our candidate distinction is adversarial obstruction under incomplete evidence, not refusal shopping or authorization alone. Whether this constitutes a novel contribution remains open.
+\section{Model and prototype}
+Let $A^*(a)$ denote evaluator-only authorization ground truth. Workers emit approve, refuse, or defer. We report unauthorized execution $P(\mathrm{execute}\mid A^*=0)$ and authorized completion $P(\mathrm{execute}\mid A^*=1)$. Unknown output is mapped to defer in the strict parser. These metrics are conditional rates, not estimates of real-world prevalence.
+
+The prototype binds records to a principal, operation, resource, policy version, and state version. A record is considered only if its source is trusted, its action matches, and it is unexpired. Conflicting or missing trusted records yield unknown. Trust and source authenticity are assumed, rather than implemented cryptographically. Figure~\ref{fig:arch} sketches the flow. A same-information authorization gate serves as the essential comparator: provenance and a ledger alone do not imply a better frontier.
+\begin{figure}[t]
+\resizebox{\columnwidth}{!}{\input{images/protocol.tex}}
+\caption{Prototype decision flow. Evidence availability, current state, and source integrity are external assumptions.}\label{fig:arch}
+\end{figure}
+\section{Experimental method}
+We generate 160 balanced synthetic requests using four roles, four resource names and a rule naming two permitted roles. This yields 102 distinct ordered role/resource combinations; repetitions limit effective scenario diversity. Qwen2.5-3B-Instruct and SmolLM2-1.7B-Instruct each receive the same rule and request three times through sampled outputs, with temperature 0.8 and top-$p$ 0.95. These are independent samples of a prompt, not interactive multi-agent trajectories. A second prompt reframes the task as list membership and omits the resource, so the comparison does not isolate wording alone. All actions are simulated.
+
+We replay the samples using first decision, retry until an approval, unconditional veto, and evidence-based gates. Strict parsing accepts exact labels only; an anchored sensitivity parser accepts a few fixed label variants. In a separate forced-choice analysis, candidate continuation log likelihoods for \texttt{APPROVE} and \texttt{REFUSE} are normalized and sampled. This forces a binary answer and its values are not calibrated authorization probabilities. For the false-objection replay, we append a refusal to every sample set and vary the availability of trusted evidence; where available, this synthetic evidence is set equal to evaluator ground truth. The equally informed gate receives the same evidence. This is an optimistic mechanism check, not a deployment evaluation.
+\section{Results}
+With Qwen's original free-generation prompt, first decision completed 8 of 80 authorized cases and executed 0 of 80 unauthorized cases. Retry completed 10 and executed 0; veto completed 6 and executed 0. The altered prompt increased first-decision completion to 32 of 80; the comparison changes task framing and resource information. The sample is small and template dependent.
+
+Measurement choices are consequential. SmolLM2's original prompt produced 406 of 480 outputs not recognized by strict parsing, including responses such as \texttt{REJECT} or prefixed labels. Anchored parsing leaves 98 unresolved. In the same condition first-decision counts change from 5/80 unauthorized and 16/80 authorized under strict parsing to 12/80 and 27/80 with anchored parsing. Forced-choice scoring instead gives 53/80 unauthorized and 58/80 authorized first decisions, with retry at 78/80 and 76/80, respectively. These are different measurements, not interchangeable estimates of one underlying behavior.
+
+In the controlled forced-choice replay, injecting a refusal into every case makes unconditional veto block all 80 authorized cases. With nominal 50\% evidence availability, 33 authorized cases have available evidence; both the scoped ledger and the equally informed gate complete those 33 and execute no unauthorized cases. This equality follows from the construction and does not demonstrate that the ledger improves on authorization. In a separate constructed source-failure test, a detectable stale version produces unknown, while undetectable stale or corrupted trusted assertions can produce unsafe execution. The source error rates in that test are stipulated, not measured.
+\section{Discussion}
+The pilot shows why safety and availability must be measured together, and why decision formatting and task framing need explicit controls. The false-objection replay illustrates a failure mode of unconditional veto, but does not establish how often a model would mount such an attack. The evidence ledger adds explicit scope and freshness checks to the prototype; the equal-information baseline demonstrates that these checks alone cannot establish a novel frontier improvement. A meaningful next evaluation should use independently developed task families, interactive workers, human-validated ground truth, source failures, bounded verification and review budgets, adaptive attackers, and matched strong baselines. The code and raw outputs should be inspected with these restrictions in mind.
+\appendix
+\section{Limitations and Dual-Use / Ethical Considerations}
+The workload is synthetic, small, and repetitive. Forced-choice scores remove deferral, and sampled completions do not constitute a functioning agent network. The prototype lacks authentication, transactional state checks, revocation, and adversarially controlled sources; it is not suitable for deployment. We do not claim novelty or conference readiness based on this pilot. The attack is limited to fake records and no real service or unauthorized operation is exercised. Publishing failure modes can assist misuse; the released examples are abstract and designed for defensive evaluation.
+\begin{thebibliography}{9}
+\bibitem{ying} Z. Ying et al. Delegated Misalignment: How Multi-Agent Structures Amplify LLM Safety Risks. \emph{EMNLP}, 2026. \url{https://aclanthology.org/2026.emnlp-main.398/}
+\bibitem{liu} L. Liu et al. Operational Reframing and Approval-Framed Delegation in Multi-Agent LLM Safety. 2026. \url{https://arxiv.org/abs/2607.07097}
+\bibitem{safin} T. H. Safin et al. Trust propagation and structural containment in Multi-agent LLM pipelines. 2026. \url{https://arxiv.org/abs/2609.17648}
+\bibitem{simhi} A. Simhi et al. ManagerBench: Evaluating the Safety-Pragmatism Trade-off in Autonomous LLMs. \emph{ICLR}, 2026.
+\end{thebibliography}
+\end{document}
