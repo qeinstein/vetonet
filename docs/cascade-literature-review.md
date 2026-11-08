@@ -1,6 +1,6 @@
 # Focused literature review: autonomous safety-verification cascades
 
-Reviewed 2026-11-08. This is a focused review of the four directly named neighboring works, not an exhaustive novelty search.
+Reviewed 2026-11-08. This is a focused review of the four directly named works plus three adjacent studies, not an exhaustive novelty search.
 
 ## Closest precedent: contagion in agent systems
 
@@ -26,6 +26,32 @@ Xia et al., *TraceFix: Repairing Agent Coordination Protocols with TLA+ Countere
 
 Primary source: [arXiv:2605.07935](https://arxiv.org/abs/2605.07935); [project page](https://snr.rutgers.edu/focus/agentic.html).
 
+## Self-escalation and verifier cascades
+
+Shaikh, *Knowing When to Ask for Help: Bayesian Self-Escalation in Hierarchical LLM Agents*, arXiv:2608.24087 (2026), formulates agent escalation as Bayesian optimal stopping and includes a real Qwen2.5-Coder 1.5B→7B cascade on 257 MBPP tasks. It studies when a junior should transfer control to a stronger model based on a competence belief. It establishes agent-initiated escalation and cost/accuracy frontiers as active prior work, but does not examine safety objections recursively causing other agents to create new objections.
+
+Primary source: [arXiv:2608.24087](https://arxiv.org/abs/2608.24087).
+
+## False alarms relayed through accountability layers
+
+Arslan, *Audit Without Verification: When LLM Accountability Layers Relay Rather Than Check*, arXiv:2609.07680 (2026), evaluates six-agent accountability chains with balanced defect injection and clean twins. It reports that auditors rarely originate allegations in clean episodes but poorly filter false alarms made upstream, and traces anchoring to a conclusion clause in agent reports. The work is close to safety concerns being repeated downstream, and its large preregistered evaluation makes it particularly important. Its measured outcome is false attribution/relay in an audit chain, not a spontaneous chain of new verification obligations that exhausts an operational queue.
+
+Primary source: [arXiv:2609.07680](https://arxiv.org/abs/2609.07680).
+
+This paper is a particularly close boundary case for the present hypothesis: downstream agents can repeat or act on upstream false allegations. Therefore, a candidate cascade here must contain new child obligations that are not simple restatements or downstream acceptance of the seed allegation. Count the initial allegation and its relays separately from independently authored followups, and inspect full parent-linked transcripts.
+
+## Capacity-constrained and fatigue-aware escalation
+
+Alves et al., *Cost-Sensitive Learning to Defer to Multiple Experts with Workload Constraints*, TMLR 2024, develops DeCCaF: cost-sensitive expert assignment under workload constraints, optimized globally with constraint programming. Zhang et al., *Fatigue-Aware Learning to Defer via Constrained Optimisation*, arXiv:2604.00904 (2026), models expert accuracy as workload-dependent and treats allocation as constrained sequential decision-making. Turan's *Oversight Has a Capacity* explicitly identifies fatigue-aware deferral, DeCCaF, and fatigue/flooding attacks as prior art, and describes its own inverted-U and flooding results as modeling results motivating human study. Thus neither scarce review capacity, workload-aware allocation, nor flooding of reviewers is a novelty claim for this project.
+
+Primary sources: [DeCCaF, TMLR](https://openreview.net/forum?id=TAuGZm2Rqb); [FALCON, arXiv:2604.00904](https://arxiv.org/abs/2604.00904); [Oversight Has a Capacity, arXiv:2606.08919](https://arxiv.org/abs/2606.08919).
+
+## Trust propagation with an execution authorization boundary
+
+Safin et al., *Trust Propagation and Structural Containment in Multi-agent LLM Pipelines*, arXiv:2609.17648 (2026; accepted at CARS 2026), study a four-agent LangGraph workflow with shared-memory poisoning and indirect prompt injection. Their independent authorization layer contains unsafe execution even when an upstream validator is compromised. This overlaps with the use of a trusted execution monitor and agent-to-agent propagation. The proposed cascade question concerns availability failure caused by honest reviewers' additional obligations, which is outside their unsafe execution estimand.
+
+Primary source: [arXiv:2609.17648](https://arxiv.org/abs/2609.17648).
+
 ## Implications for the experiment
 
 The experimental unit cannot be a synthetic queue event. It must be a model-authored message that creates a new child request, followed by an actual model response to that request. A path of depth two is not automatically a safety cascade: it may be an ordinary checklist (for example, checking a second required authorization predicate), duplicate wording, or a fixed-workflow artifact. The study must retain the complete prompt/response graph and classify each edge by whether it introduces a distinct concern, depends on the seed, is policy relevant, and could change the action's authorization.
@@ -35,6 +61,7 @@ The empirical claim, if any, must be limited to the tested model, prompt, task d
 ## Open review items
 
 - Search for related work on recursive debate/critique, verification loops, escalation contagion, workflow deadlock, and endogenous alarms in non-LLM distributed systems.
+- Compare false-alarm relay and self-escalation work above at the level of task graph, message source, and outcome; do not rely on title-level distinctions.
 - Inspect citations and subsequent work from Wu et al. and Turan; verify publication status and any benchmark/code releases.
 - Check whether multi-agent workflow studies report model-generated follow-up requests as an outcome, rather than only injected context or scripted task queues.
 - Compare any proposed intervention against established selective classification, deduplication, semantic caching, escalation limits, and policy monitors.
