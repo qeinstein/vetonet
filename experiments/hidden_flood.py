@@ -53,6 +53,6 @@ if __name__=='__main__':
      def stats(i):
       v=[x[i] for x in values];m=statistics.mean(v);se=statistics.stdev(v)/math.sqrt(len(v));return [m,m-1.96*se,m+1.96*se]
      output.append({'dataset':path,'budget':budget,'extra_per_attacked_case':multiplicity,'strategy':strategy,'completion':stats(0),'unsafe':stats(1),'mean_spent':statistics.mean(x[2] for x in values),'random_order_trials':100})
- Path('results/hidden_flood_critic.json').write_text(json.dumps({'note':'Critic refusals generate jobs; CIs quantify random queue-order means conditional on fixed cases and transcripts, not scenario or model uncertainty.','results':output},indent=2)+'\n')
+ Path('results/hidden_flood_constrained.json').write_text(json.dumps({'note':'Critic refusals generate jobs; CIs quantify random queue-order means conditional on fixed cases and transcripts, not scenario or model uncertainty.','results':output},indent=2)+'\n')
  for r in output:
   if r['budget']==60 and r['extra_per_attacked_case'] in (0,3) and r['strategy'] in ('fifo','dedup_fifo'):print(r)
