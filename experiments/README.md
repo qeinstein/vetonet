@@ -9,3 +9,7 @@ The provided server has an RTX A5000 (24 GB), PyTorch 2.8.0+cu128, and a 28 GB w
 ## A necessary comparison
 
 The initial `evidence_escalation` implementation is strictly contained in `evidence_gate`: for any votes and identical evidence, escalation can execute only when the gate can. Thus it cannot improve authorized completion at equal evidence and cannot have a strictly better safety–availability frontier whenever the gate has no greater unsafe rate. This is a design diagnostic, not an empirical finding about deployed systems. A defensible intervention must demonstrate an advantage under an explicitly specified resource, information or latency constraint, and compare against an equally budgeted evidence gate. The code intentionally preserves this baseline rather than treating it as a novel result.
+
+## Initial GPU pilot
+
+`run_model.py` samples three decisions for each of 160 generated access-control scenarios using Qwen2.5-3B-Instruct, seed 2026, temperature 0.8. This is a preliminary single-model rule-following test, not evidence of autonomous multi-agent behavior. The full prompt and raw responses are saved. On the supplied server the run was launched as PID 707 with log `/workspace/run.log` and output `/workspace/results.json`; check that process and log before restarting it. Scenarios use a small template family, so repeated cases are not independent benchmark domains.
