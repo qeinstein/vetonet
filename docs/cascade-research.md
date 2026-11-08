@@ -24,15 +24,17 @@ Qwen generated no depth-two path in the four unsupported-objection episodes. One
 
 The current runner is still a discovery instrument. It uses a single deployment policy, one GPU-local model per run, synthetic evidence, at most five generated follow-ups per call, and a bounded depth/node count. It can reveal whether actual model outputs contain multi-hop request paths in this setup. It cannot establish a general epidemic threshold or a NeurIPS-level contribution. Duplicate keys are logged, not suppressed in the exploratory path; semantic novelty and policy relevance require trajectory review.
 
+### v3.3 Qwen smoke: target effect not observed
+
+The neutral-message Qwen2.5-3B smoke ran 12 episodes over four worlds. Both authorized unsupported objections (role and approval variants) produced no followups, as did their paired no-objection runs. All 24 generated followups elsewhere were repeats of a source key in the initial signed bundle; manual review found duplicate checks around existing violations rather than new concerns. The coordinator declined all 12 episodes, including every authorized episode, so legitimate completion is at floor and no safety-availability effect is estimable. This is a negative diagnostic for this prompt/checkpoint, not evidence that cascades cannot occur. See `docs/cascade-network-v3_3-pilot.md`; raw and analyzer outputs are `results/cascade-network-v3_3-qwen-smoke.json`, `results/cascade-network-v3_3-qwen-smoke-summary.episodes.csv`, and `results/cascade-network-v3_3-qwen-smoke-summary.json`.
+
 The first Qwen v3 smoke exposed a protocol-design artifact: reviewers did not see sibling requests already waiting in the queue, and could repeatedly emit the same known policy checks. The run was stopped after five partial episodes were saved to `results/cascade-network-v3-qwen-smoke-diagnostic.json`. The v3.1 run exposed inconsistent evidence coverage, condition-sensitive completion, repeated review of already-verified facts, one genuine-violation path composed entirely of duplicate role checks, and two truncated JSON responses. Its six episodes are in `results/cascade-network-v3_1-qwen-smoke.json`. Neither smoke establishes the target phenomenon. A v3.2 labeled smoke then exposed evaluator-condition leakage in wording (“unsupported concern,” “genuine policy concern,” and “unrelated concern”), so `results/cascade-network-v3_2-qwen-labeled-smoke-diagnostic.json` is preserved but excluded from inference. Version 3.3 removes those labels and varies the unsupported objection across authorization predicates. It is a prompt-confound correction, not evidence that cascades exist.
 
 ## Decision rule
 
-1. Verify JSON/graph integrity and inspect every candidate path of depth at least two.
-2. Separate ordinary policy-check dependencies, duplicate restatements, irrelevant requests, and genuinely new safety objections.
-3. Compare paired objection and no-objection episodes on generated requests, unique reviewed dependencies, depth, calls, permit/completion, and monitor outcome.
-4. If no reproducible multi-hop safety-objection path appears, report the null pilot and stop claiming an endogenous cascade. Do not make the model generate children by instruction or by simulator rule.
-5. First smoke-test v3.3 on Qwen and inspect every generated child and ancestry. If the model does not author even a candidate two-generation path, report that promptly; do not relax prompts or add simulated children to manufacture one. If candidates appear, adjudicate whether they are distinct, propagated, decision-relevant concerns before expanding to more worlds and a second model family.
+1. Keep the v3.3 result as a null discovery pilot and do not report the duplicate paths as safety cascades.
+2. Do not design or claim a cascade defense without observing at least one distinct, model-authored, multi-generation safety-objection path under a valid control.
+3. Any future discovery run needs a preregistered evidence-freshness/trust model and a prompt that avoids the all-decline floor without forcing execution. It must preserve paired worlds and use real model-generated followups. Do not tune prompts selectively to obtain the hypothesized effect.
 
 ## Literature and novelty boundary
 
