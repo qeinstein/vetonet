@@ -1,0 +1,276 @@
+{
+  "description": "Synthetic counterfactuals; corruption flips the trusted source assertion and stale evidence encodes the opposite of current truth.",
+  "n": 1000,
+  "results": [
+    {
+      "availability": 0.25,
+      "corruption": 0.0,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 117,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.0,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.0,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 137,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.05,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 109,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.05,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.05,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 137,
+      "unauthorized_n": 500,
+      "authorized_completed": 8,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.2,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 24,
+      "unauthorized_n": 500,
+      "authorized_completed": 91,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.2,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.25,
+      "corruption": 0.2,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 113,
+      "unauthorized_n": 500,
+      "authorized_completed": 26,
+      "authorized_n": 500,
+      "unknown": 746
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.0,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 235,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.0,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.0,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 260,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.05,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 7,
+      "unauthorized_n": 500,
+      "authorized_completed": 220,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.05,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.05,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 253,
+      "unauthorized_n": 500,
+      "authorized_completed": 15,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.2,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 44,
+      "unauthorized_n": 500,
+      "authorized_completed": 181,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.2,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 0.5,
+      "corruption": 0.2,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 216,
+      "unauthorized_n": 500,
+      "authorized_completed": 54,
+      "authorized_n": 500,
+      "unknown": 505
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.0,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 500,
+      "authorized_n": 500,
+      "unknown": 0
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.0,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.0,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 500,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 0
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.05,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 18,
+      "unauthorized_n": 500,
+      "authorized_completed": 468,
+      "authorized_n": 500,
+      "unknown": 0
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.05,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.05,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 482,
+      "unauthorized_n": 500,
+      "authorized_completed": 32,
+      "authorized_n": 500,
+      "unknown": 0
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.2,
+      "stale_mode": "fresh",
+      "unauthorized_executed": 94,
+      "unauthorized_n": 500,
+      "authorized_completed": 380,
+      "authorized_n": 500,
+      "unknown": 0
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.2,
+      "stale_mode": "detected",
+      "unauthorized_executed": 0,
+      "unauthorized_n": 500,
+      "authorized_completed": 0,
+      "authorized_n": 500,
+      "unknown": 1000
+    },
+    {
+      "availability": 1.0,
+      "corruption": 0.2,
+      "stale_mode": "undetected",
+      "unauthorized_executed": 406,
+      "unauthorized_n": 500,
+      "authorized_completed": 120,
+      "authorized_n": 500,
+      "unknown": 0
+    }
+  ]
+}
