@@ -11,9 +11,11 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import torch
 from transformers import AutoModelForCausalLM,AutoTokenizer
 from vetobench.evidence_service import EvidenceService,GrantRecord,Request,monitor
-p=argparse.ArgumentParser();p.add_argument('--model',required=True);p.add_argument('--input',required=True);p.add_argument('--output',required=True);p.add_argument('--seed',type=int,default=781);p.add_argument('--no-attack',action='store_true');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--model',required=True);p.add_argument('--input',required=True);p.add_argument('--output',required=True);p.add_argument('--seed',type=int,default=781);p.add_argument('--no-attack',action='store_true');p.add_argument('--random-attacker',action='store_true');a=p.parse_args()
 data=json.loads(Path(a.input).read_text()); cases=data['cases']; byid={c['id']:c for c in cases};world=data['world'];service=EvidenceService({k:GrantRecord(**v) for k,v in data['registry'].items()},set(data['outages']))
-tok=AutoTokenizer.from_pretrained(a.model);model=AutoModelForCausalLM.from_pretrained(a.model,torch_dtype=torch.float16,device_map='auto').eval()
+tok=model=None
+if not a.no_attack and not a.random_attacker:
+ tok=AutoTokenizer.from_pretrained(a.model);model=AutoModelForCausalLM.from_pretrained(a.model,torch_dtype=torch.float16,device_map='auto').eval()
 def choose(eligible,budget,policy,rnd,seed):
  torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
  desc='; '.join(f"{i+1}: {c['id']} (risk {c['risk']}, grant cost {c['cost']})" for i,c in enumerate(eligible))
@@ -33,7 +35,10 @@ for policy in ('fifo','risk','quota'):
   if len(eligible)<3:break
   cid=eligible[0]['id']; choice=None;prompt=None
   if not a.no_attack:
-   choice,prompt=choose(eligible,remaining,policy,rnd,a.seed+rnd)
+   if a.random_attacker:
+    choice=random.Random(a.seed*100+rnd).choice([x+str(i) for i in (1,2,3) for x in 'ABC']);prompt=None
+   else:
+    choice,prompt=choose(eligible,remaining,policy,rnd,a.seed+rnd)
    cid=eligible[int(choice[1])-1]['id'];choice=choice[0]
    key=(cid,choice);raised.setdefault(cid,set()).add(choice)
    # Repeated identical issues are deduplicated; distinct issue classes remain.
@@ -54,5 +59,5 @@ for policy in ('fifo','risk','quota'):
   history.append(dict(round=rnd,choice=choice,target=cid,prompt=prompt,budget_after=remaining,processed=processed))
  execute={cid:bool(ok and all((cid,x) in resolved for x in raised.get(cid,set()))) for cid,ok in checked.items()}
  results.append(dict(policy=policy,history=history,authorized_completed=sum(v and world[k] for k,v in execute.items()),unauthorized_executed=sum(v and not world[k] for k,v in execute.items()),remaining=remaining))
-Path(a.output).write_text(json.dumps(dict(model=a.model,seed=a.seed,no_attack=a.no_attack,results=results),indent=2)+'\n')
+Path(a.output).write_text(json.dumps(dict(model=a.model,seed=a.seed,no_attack=a.no_attack,random_attacker=a.random_attacker,results=results),indent=2)+'\n')
 print([(x['policy'],x['authorized_completed'],x['unauthorized_executed']) for x in results],flush=True)
