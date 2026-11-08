@@ -1,15 +1,39 @@
-# Safety Cascade Paradox: discovery protocol
+# Safety-cascade research status
 
-The current question supersedes the budget-flooding question as the central research direction; prior results remain archived. A single externally supplied objection may be followed only by reviewer-generated children. The pilot logs parent, child, depth, raw output, exact-key tool responses, duplicate filtering, schema failures, and truncation. The empty-objection root is an ordinary initial task rather than an externally injected objection. Unsupported, genuine, and irrelevant seeds have different factual roles and are not equivalent prompts. The genuine condition changes actual approval state. They are preliminary controls, not yet a factorial causal design.
+## Current question
 
-`cascade_discovery.py` is a discovery scaffold: repeated calls to one model act as reviewers, with a deterministic simulated tool and bounded node count. It does not yet implement a coordinator, model-specific identities, a trusted execution monitor, decision-critical verification, or independent scenarios. The runner creates no children unless explicitly produced in parseable reviewer output. Exact-string duplicate detection is not semantic; unsupported obligations and independent evidence relevance require separate validation. A node's generated children may be enqueued without tool completion, so raw counts alone cannot establish the user's reproduction factor. Invalid output ends that branch but is reported, not treated as genuine resolution. Every condition shares a tiny artificial policy and tool. Treat observed multi-hop paths as candidates for manual inspection, not established cascades.
+Can one unsupported safety objection induce otherwise compliant language-model reviewers to create new verification obligations over multiple interaction generations, reducing completion of a legitimate action? Every downstream obligation must appear in a model response; a scripted queue is not evidence for the claim.
 
-Pilot launched on GPU server as PID 3949 (`/workspace/cascade-pilot.log`), one episode per condition for each of Qwen2.5-3B and SmolLM2-1.7B; check the process and logs before restarting. No research conclusions are yet supported.
+This question supersedes verification-budget allocation as the central research direction. Earlier VetoNet queue and allocation results remain in `results/` as historical baselines and must not be presented as evidence for an endogenous cascade.
 
-Related work (initial review, not a novelty determination): [Collective Loss of Control](https://arxiv.org/abs/2609.18460) studies mutation and contagion; [Combining Cost Constrained Runtime Monitors](https://proceedings.neurips.cc/paper_files/paper/2025/hash/ed56a654ddb681841fdb2184463c253e-Abstract-Conference.html) treats constrained monitoring; [Oversight Has a Capacity](https://arxiv.org/abs/2606.08919) studies escalation and flooding under reviewer fatigue; [TraceFix](https://arxiv.org/abs/2605.07935) studies verification and repair of coordination protocols. All precede this project and must be compared in detail before asserting novelty.
+## Discovery evidence to date
 
-First Qwen pilot, seed 105: unsupported objection generated one child (`approval`), which returned active and created no children; genuine and irrelevant seeds created none. The no-objection response failed JSON/schema parsing and therefore cannot be called a resolved or null-cascade episode. Some outputs said `delegate` with an empty child list, and the genuine condition said `resolve` while listing a child; the runner follows the explicit decision and records the inconsistency. The seed was a policy-relevant uncertainty, so its one follow-up is ordinary evidence gathering, not demonstrated unnecessary escalation or a multi-generation cascade. More evidence and output validation are necessary.
+### Version 1 pilot
 
-SmolLM2 pilot: no-objection and unsupported conditions output `resolve` while listing four or more children; the runner ignored those children. The genuine condition failed schema parsing. The irrelevant seed created one child, which then failed parsing. No two-generation cascade was observed, and malformed/inconsistent output means neither model's pilot establishes absence of cascades.
+One episode per condition and model. This pilot was schema-sensitive and is not interpretable as a cascade test. Qwen generated one child for the unsupported objection, whose evidence lookup resolved the approval concern; malformed or contradictory outputs occurred in other conditions. SmolLM2 also produced malformed or contradictory responses. Details remain in `docs/cascade-discovery-pilot.md`.
 
-Version 2 carries exact-key verified facts down each branch, provides explicit consistent JSON examples, strips optional Markdown fences, and rejects contradictory decision/children combinations. It retains free generation and only admits model-produced children; the prompt change means v1 and v2 results are not directly comparable. Four episodes per condition and model are running on server PID 4177 (`/workspace/cascade-v2.log`). The same fixed world is still used, and this remains a discovery scaffold rather than a validated network or execution monitor.
+### Version 2 pilot
+
+Four fixed-world episodes per condition and model, with JSON examples and exact-key evidence lookup. Full raw trajectories are `results/cascade-qwen-v2.json` and `results/cascade-smol-v2.json`.
+
+Qwen generated no depth-two path in the four unsupported-objection episodes. One depth-two path occurred in the no-objection baseline: an ordinary authorization checklist led from the `change_window` fact to the separate `environment` fact. This is not an objection cascade. The unsupported concern generated one or two first-level checks; those branches then stopped. SmolLM2 produced no depth-two paths in any condition and failed the strict response schema on several branches. Its output cannot count as evidence of resolution. The pilot has four episodes per condition and a single artificial world, so it neither establishes the phenomenon nor rules it out.
+
+## Current experiment
+
+`experiments/cascade_network_v3.py` provides a structured-decoding interactive workflow with coordinator, worker, and critic roles; shared agent messages; model-generated follow-up requests; a synthetic evidence service; and a trusted execution monitor that issues a permit only when all required evidence is verified and passes policy. The monitor does not show evaluator-only ground truth to the agents. A child node is created only from a generated `followups` item. Each world has paired no-objection and objection conditions; only the injected first message varies within a pair. One model's calls across roles are distinct contexts, not independent model instances.
+
+The current runner is still a discovery instrument. It uses a single deployment policy, one GPU-local model per run, synthetic evidence, at most two generated follow-ups per call, and a bounded depth/node count. It can reveal whether actual model outputs contain multi-hop request paths in this setup. It cannot establish a general epidemic threshold or a NeurIPS-level contribution. Duplicate keys are logged, not suppressed in the exploratory path; semantic novelty and policy relevance require trajectory review.
+
+## Decision rule
+
+1. Verify JSON/graph integrity and inspect every candidate path of depth at least two.
+2. Separate ordinary policy-check dependencies, duplicate restatements, irrelevant requests, and genuinely new safety objections.
+3. Compare paired objection and no-objection episodes on generated requests, unique reviewed dependencies, depth, calls, permit/completion, and monitor outcome.
+4. If no reproducible multi-hop safety-objection path appears, report the null pilot and stop claiming an endogenous cascade. Do not make the model generate children by instruction or by simulator rule.
+5. Only if the discovery condition holds, expand across independently varied worlds and model families, then compare defenses such as deduplication, depth limits, and decision-relevance filtering.
+
+## Literature and novelty boundary
+
+The closest identified work is Wu et al., *Collective Loss of Control in LLM Agent Systems* (2026). It models mutation, transmission, and recovery and experimentally measures recipients' susceptibility to an injected unsafe trajectory. Its authors explicitly state that the study does not demonstrate a naturally unfolding autonomous cascade. This is a close precedent and narrows any possible contribution to empirical, safety-seeking escalation behavior—not cascades in general.
+
+Hua et al. (NeurIPS 2025) optimize cost-constrained combinations of runtime monitors; Turan (2026) studies escalation capacity, fatigue, and flooding; Xia et al. (2026) synthesize and model-check multi-agent coordination protocols. These works make resource exhaustion, bounded monitoring, and protocol verification established adjacent areas. See `docs/cascade-literature-review.md` for sources and positioning. No novelty claim is justified by the current experiments.
