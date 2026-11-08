@@ -2,6 +2,9 @@
 \usepackage[margin=0.75in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
 \usepackage{url}
 \title{Evidence-Bound Refusals in Multi-Agent Systems: A Pilot Study of Safety and Availability}
 \author{Author and affiliation to be supplied}
@@ -36,6 +39,14 @@ In the controlled forced-choice replay, injecting a refusal into every case make
 We also ran a matched context-injection pilot with no prior decision, an unsupported prior refusal, and that refusal plus a registry statement constructed to match ground truth. Qwen refused all 480 cases across conditions, including all authorized cases. Under anchored parsing, SmolLM2 approved 2/80 authorized requests without a prior refusal, 0/80 after a refusal, and 5/80 when a positive registry statement was added; it left 7, 3, and 6 outputs unresolved, respectively. These low completion rates and single draws prevent a reliable estimate of recovery. The registry statement was text in the prompt rather than an authenticated query, and the contrast is not an interactive network.
 
 In a sequential pilot, a second decision was requested only after an exact first-stage refusal. For Qwen, 147/160 cases met that criterion (80 unauthorized and 67 authorized). The fresh-worker branch reversed 3/67 authorized refusals and 0/80 unauthorized refusals; same-history reconsideration and refusal-aware fresh workers reversed none. SmolLM2 selected only 21/160 cases, because most first responses used alternative labels such as \texttt{REJECT}; these selected cases are not representative. This is a small, single-seed conditional comparison with simulated branches, not evidence about general delegation safety.
+
+
+\begin{figure*}[t]
+\centering\input{images/budget_figure.tex}
+\caption{Exploratory synthetic queue replay, one fixed Qwen transcript set and one simulated world. Three extra objection jobs are added per attacked case (approximately half the requests); all policies use the same lookup budget and deduplicate by action. Values are means across 100 random queue orders, not independent scenarios. Registry records can be stale, unavailable, or corrupted. The evidence-aware score depends on an objection signal the adversary can manipulate; this is a sensitivity test, not an adaptive attack or evidence of general superiority.}\label{fig:budget}
+\end{figure*}
+
+In an exploratory budget replay (Figure~\ref{fig:budget}), a synthetic external registry holds the decisive grant and can return stale or erroneous records. A compromised participant is scripted to add duplicate objection jobs; a critic's constrained labels also contribute jobs. With budget 60, evidence-aware ordering produces mean authorized completion 26.9\% and unauthorized execution 0.5\% without the scripted flood, versus 19.5\% and 1.7\% with three extra objections per attacked case. Under the same attack, risk-priority with deduplication yields 28.5\% completion and 1.7\% unauthorized execution. These are conditional means from one fixed set of 120 cases, and attacker-controlled priority, uncertain registry reliability, and random queue ordering preclude a general advantage claim. The attack only duplicates actions, and the monitor is simulated; no on-policy adaptive adversary was evaluated.
 
 \section{Discussion}
 The pilot shows why safety and availability must be measured together, and why decision formatting and task framing need explicit controls. The false-objection replay illustrates a failure mode of unconditional veto, but does not establish how often a model would mount such an attack. The evidence ledger adds explicit scope and freshness checks to the prototype; the equal-information baseline demonstrates that these checks alone cannot establish a novel frontier improvement. A meaningful next evaluation should use independently developed task families, interactive workers, human-validated ground truth, source failures, bounded verification and review budgets, adaptive attackers, and matched strong baselines. The code and raw outputs should be inspected with these restrictions in mind.

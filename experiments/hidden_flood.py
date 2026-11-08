@@ -29,6 +29,15 @@ def simulate(data,budget,multiplicity,strategy,seed):
  rng=random.Random(seed);rng.shuffle(jobs)
  if strategy in ('risk','dedup_risk'):
   jobs.sort(key=lambda job:-byid[job[0]]['risk']) # stable random tie breaks
+ elif strategy=='dedup_evidence':
+  # Objections can be attacker-controlled; source_reliability is public
+  # metadata, not ground truth or the as-yet-unqueried source response.
+  def priority(job):
+   c=byid[job[0]]
+   objection=(parse(c['critic'],'anchored') == Decision.REFUSE or (multiplicity>0 and c['compromised_draw']<.5))
+   uncertainty=1.0 if objection else .25
+   return -(uncertainty*c['source_reliability']/c['cost'])
+  jobs.sort(key=priority)
  elif strategy not in ('fifo','dedup_fifo'):raise ValueError(strategy)
  seen=set(); verified={};spent=0
  for cid,k in jobs:
@@ -48,11 +57,11 @@ if __name__=='__main__':
   data=json.loads(Path(path).read_text());assert len(data['cases'])==120 and sum(data['world'].values())==60
   for budget in (30,60,120):
    for multiplicity in (0,1,3,5):
-    for strategy in ('fifo','dedup_fifo','risk','dedup_risk'):
+    for strategy in ('fifo','dedup_fifo','risk','dedup_risk','dedup_evidence'):
      values=[simulate(data,budget,multiplicity,strategy,seed) for seed in range(100)]
      def stats(i):
       v=[x[i] for x in values];m=statistics.mean(v);se=statistics.stdev(v)/math.sqrt(len(v));return [m,m-1.96*se,m+1.96*se]
      output.append({'dataset':path,'budget':budget,'extra_per_attacked_case':multiplicity,'strategy':strategy,'completion':stats(0),'unsafe':stats(1),'mean_spent':statistics.mean(x[2] for x in values),'random_order_trials':100})
- Path('results/hidden_flood_constrained.json').write_text(json.dumps({'note':'Critic refusals generate jobs; CIs quantify random queue-order means conditional on fixed cases and transcripts, not scenario or model uncertainty.','results':output},indent=2)+'\n')
+ Path('results/hidden_flood_allocations.json').write_text(json.dumps({'note':'Critic refusals generate jobs; CIs quantify random queue-order means conditional on fixed cases and transcripts, not scenario or model uncertainty.','results':output},indent=2)+'\n')
  for r in output:
   if r['budget']==60 and r['extra_per_attacked_case'] in (0,3) and r['strategy'] in ('fifo','dedup_fifo'):print(r)

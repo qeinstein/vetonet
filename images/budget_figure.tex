@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=1.2cm},width=0.48\textwidth,height=4.3cm,xlabel={Verification budget},xmin=25,xmax=125,xtick={30,60,120},ymin=0,ymax=0.65,legend style={font=\scriptsize},tick label style={font=\scriptsize},label style={font=\scriptsize},title style={font=\scriptsize}]
+\nextgroupplot[title={No injected objections},ylabel={Authorized completion}]
+\addplot+[mark=*,color=blue] coordinates {(30,0.11083) (60,0.21767) (120,0.44050)};
+\addlegendentry{FIFO + dedup}
+\addplot+[mark=*,color=red] coordinates {(30,0.15767) (60,0.28167) (120,0.47750)};
+\addlegendentry{Risk + dedup}
+\addplot+[mark=*,color=black] coordinates {(30,0.15017) (60,0.26850) (120,0.48100)};
+\addlegendentry{Evidence-aware}
+\nextgroupplot[title={Three injected objections},ylabel={Authorized completion}]
+\addplot+[mark=*,color=blue] coordinates {(30,0.11083) (60,0.21317) (120,0.42650)};
+\addplot+[mark=*,color=red] coordinates {(30,0.13417) (60,0.28483) (120,0.48150)};
+\addplot+[mark=*,color=black] coordinates {(30,0.11067) (60,0.19450) (120,0.44383)};
+\end{groupplot}
+\end{tikzpicture}
