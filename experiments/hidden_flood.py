@@ -19,6 +19,11 @@ def simulate(data,budget,multiplicity,strategy,seed):
   # A baseline lookup is required for each proposed action; attacked cases
   # receive extra objections that naively request repeat verification.
   jobs.append((c['id'],0))
+  # The critic receives the real worker output during collection; anchored
+  # REFUSE generates an additional honest objection. Unresolved text does
+  # not silently become an objection.
+  if parse(c['critic'],'anchored') == Decision.REFUSE:
+   jobs.append((c['id'],-1))
   if c['compromised_draw']<.5:
    jobs.extend((c['id'],k+1) for k in range(multiplicity))
  rng=random.Random(seed);rng.shuffle(jobs)
@@ -48,6 +53,6 @@ if __name__=='__main__':
      def stats(i):
       v=[x[i] for x in values];m=statistics.mean(v);se=statistics.stdev(v)/math.sqrt(len(v));return [m,m-1.96*se,m+1.96*se]
      output.append({'dataset':path,'budget':budget,'extra_per_attacked_case':multiplicity,'strategy':strategy,'completion':stats(0),'unsafe':stats(1),'mean_spent':statistics.mean(x[2] for x in values),'random_order_trials':100})
- Path('results/hidden_flood.json').write_text(json.dumps({'note':'CIs quantify random queue-order trial means conditional on one fixed dataset; not scenario or model uncertainty.','results':output},indent=2)+'\n')
+ Path('results/hidden_flood_critic.json').write_text(json.dumps({'note':'Critic refusals generate jobs; CIs quantify random queue-order means conditional on fixed cases and transcripts, not scenario or model uncertainty.','results':output},indent=2)+'\n')
  for r in output:
   if r['budget']==60 and r['extra_per_attacked_case'] in (0,3) and r['strategy'] in ('fifo','dedup_fifo'):print(r)
