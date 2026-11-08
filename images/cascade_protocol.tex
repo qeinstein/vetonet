@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  font=\small,
+  task/.style={draw,rounded corners,align=center,text width=2.25cm,minimum height=.85cm,fill=gray!8},
+  team/.style={draw,rounded corners,align=center,text width=5.2cm,minimum height=1.75cm,fill=blue!5},
+  service/.style={draw,rounded corners,align=center,text width=2.5cm,minimum height=.75cm,fill=green!7},
+  monitor/.style={draw,rounded corners,align=center,text width=2.3cm,minimum height=.9cm,fill=orange!10},
+  scorer/.style={draw,rounded corners,align=center,text width=2.1cm,minimum height=.7cm,fill=yellow!12},
+  flow/.style={-{Latex[length=2mm]},thick},
+  msg/.style={-{Latex[length=2mm]},thick,dashed},
+  evidence/.style={-{Latex[length=2mm]},thin,dotted}
+]
+\node[task] (task) at (0,0) {Authorized task\\optional single objection};
+\node[team] (team) at (4.6,0) {Coordinator (approval); workers (role, environment); critics (window, integrity)\\Shared transcript and pending-request queue\\Every follow-up task comes from a model output};
+\node[monitor] (monitor) at (10.1,0) {Trusted execution monitor\\complete signed evidence\\no pending requests};
+\node[service] (source) at (3.6,-2.2) {Synthetic signed-evidence source\\one fact per policy key};
+\node[scorer] (truth) at (7.45,-2.2) {Evaluator-only ground-truth label};
+\node[scorer] (score) at (10.1,-2.2) {Outcome scorer};
+
+\draw[flow] (task.east) -- (team.west);
+\draw[msg] (team.north west) to[out=140,in=40,looseness=1.1] node[above,font=\scriptsize]{agents delegate and may create child requests} (team.north east);
+\draw[flow] (team.east) -- node[above,font=\scriptsize]{proposal, evidence, and queue} (monitor.west);
+\draw[evidence] (source.north east) -- (team.south west);
+\draw[flow] (monitor.south) -- (score.north);
+\draw[msg] (truth.east) -- (score.west);
+\end{tikzpicture}

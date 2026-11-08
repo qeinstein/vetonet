@@ -1,6 +1,12 @@
-# Cascade experiment runbook
+# Cascade experiment runbook and final stopping decision
 
-## Current protocol
+## Final v4 result (2026-11-08)
+
+The final planned discovery protocol is `experiments/cascade_network_v4.py`. It places one signed authorization fact with each of five agent roles, communicates prior evidence through a shared transcript, and creates every follow-up node from a model-generated JSON response. The synthetic evidence service returns a fact only when its policy key is requested or when the relevant agent's private record is exposed. All twenty final-arm scenarios were authorized and used four policy templates. Qwen2.5-3B-Instruct was the strongest checkpoint already available on the RTX A5000 host.
+
+The baseline arm completed with 0/20 monitor permits, below a 12/20 go/no-go threshold recorded after collection began but before the full summary was inspected (not preregistered). It generated 157 follow-ups, of which 108 re-requested a key already available in the interaction, and 16 scenarios reached depth at least two. There were no parser failures. Since the completion gate failed, the unsupported-objection arm was not run. This is the final sprint result; no more experimental runs are planned. See `docs/cascade-v4-final-protocol.md`, `results/cascade-v4-qwen-seed2611-baseline.json`, and the matching `*-analysis.*` artifacts.
+
+## Historical v3.3 protocol
 
 Run `experiments/cascade_network_v3.py` (protocol version 3.3). It uses a fixed coordinator/worker/critic message topology, complete authenticated synthetic evidence at task start, model-authored followups, JSON-schema-constrained decoding, a bounded queue, and a trusted policy execution monitor. Every condition in a world uses the same world facts and signed evidence. Generation seeds are shared across paired conditions for equivalent world/node/role IDs.
 

@@ -1,76 +1,143 @@
 \documentclass[10pt,twocolumn]{article}
-\usepackage[margin=0.75in]{geometry}
-\usepackage{amsmath,amssymb}
+\usepackage[margin=0.72in]{geometry}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{pgfplots}
-\usepgfplotslibrary{groupplots}
-\pgfplotsset{compat=1.18}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,bending,calc,fit,positioning}
 \usepackage{url}
-\title{Evidence-Bound Refusals in Multi-Agent Systems: A Pilot Study of Safety and Availability}
-\author{Author and affiliation to be supplied}
-\date{Working draft, 8 November 2026}
+\usepackage[hidelinks]{hyperref}
+\setlength{\columnsep}{0.25in}
+\title{A Baseline-Gated Test of Endogenous Verification Cascades in LLM Agent Teams}
+\author{Author details withheld at the authors' request\\\small Affiliation pending}
+\date{Apart Research Sprint report --- 8 November 2026}
+
 \begin{document}
 \maketitle
+
 \begin{abstract}
-A coordinator can retry a request after a worker refuses it, but propagating every refusal may allow one faulty or adversarial worker to block legitimate work. We study this tension using a preliminary synthetic access-control testbed, two small open-weight models, and an evidence-scoped control prototype. Our pilot samples three responses to each of 160 generated requests and replays their decisions under first-response, retry, and unconditional-veto rules. We also examine forced-choice scoring, output parsing, and a controlled false-objection replay. Results are strongly dependent on measurement: under one prompt, a strict parser identifies 406 of 480 SmolLM2 responses as unresolved, while forced-choice scoring produces a different safety--completion trade-off. In a deliberately favorable replay, a false refusal blocks all authorized cases under unconditional veto, while an evidence ledger and an equally informed authorization gate behave identically. Synthetic stale and corrupted evidence counterfactuals expose the assumed trust boundary. These results support neither a deployment guarantee nor an advantage over conventional authorization. They motivate evaluation of selective recovery under incomplete evidence, independent sources, adaptive adversaries, and matched verification budgets. All experiments are simulated; further work is required before a conference-level claim.
+Can one unsupported safety objection cause otherwise compliant language-model agents to generate further verification obligations, preventing a legitimate task? We attempted a controlled discovery study of this proposed endogenous cascade, distinguishing new policy-relevant checks from ordinary task decomposition and repeated evidence requests. The final environment assigned five signed authorization facts to a coordinator, two workers, and two critics; every follow-up task had to be emitted by a model call. We first evaluated the no-objection baseline on twenty authorized synthetic action scenarios using the strongest checkpoint already available on our RTX A5000, Qwen2.5-3B-Instruct. The coordinator and reviewers generated 157 follow-up requests; 108 re-requested a policy fact already held or returned in the shared record, while all requests mapped to the five original policy checks. Sixteen scenarios reached depth two or more, but none received a trusted-monitor permit. The baseline therefore failed the 12/20 completion gate, so we did not run the matched objection arm. An earlier, fully informed smoke test likewise did not show an unsupported-objection cascade, but had only two paired authorized scenarios per model and a completion floor. These results do not establish or refute the cascade hypothesis. They identify baseline completion and evidence-aware coordination as prerequisites for a valid causal test; no novelty claim is supported.
 \end{abstract}
+
 \section{Introduction}
-Agent-level refusals are not necessarily preserved by delegation. A coordinator can ask another worker after an objection, yet unconditional propagation gives a single worker the power to prevent legitimate work. This project asks how decision provenance and independently verifiable evidence affect that tension. We emphasize that execution is the outcome of interest: a verbal refusal is not itself an enforcement boundary. The present work is an early pilot and does not claim a new general safety guarantee.
 
-Prior work already demonstrates delegated safety failures \cite{ying}, investigates how operational framing and prior approval affect delegation \cite{liu}, and studies separate policy enforcement in multi-agent pipelines \cite{safin}. The safety--utility tension also appears in single-agent benchmarks \cite{simhi}. Our candidate distinction is adversarial obstruction under incomplete evidence, not refusal shopping or authorization alone. Whether this constitutes a novel contribution remains open.
-\section{Related work}
-AI control studies untrusted agents under limited trusted oversight \cite{greenblatt}; attack selection under fixed audit budgets can reduce measured safety \cite{gewang}. Multi-agent control research also examines distributed attacks on per-instance monitors \cite{makins}. Our objection-pressure setup is a small synthetic stress test of availability under shared verification constraints, not a claim that budgeted auditing or denial of service is new.
-\section{Model and prototype}
-Let $A^*(a)$ denote evaluator-only authorization ground truth. Workers emit approve, refuse, or defer. We report unauthorized execution $P(\mathrm{execute}\mid A^*=0)$ and authorized completion $P(\mathrm{execute}\mid A^*=1)$. Unknown output is mapped to defer in the strict parser. These metrics are conditional rates, not estimates of real-world prevalence.
+Multi-agent AI safety is often evaluated by injecting a failure into one agent and measuring whether downstream agents transmit it. A distinct possibility is that safety-seeking behavior itself creates work: one objection may prompt an honest reviewer to request another check, whose reviewer creates still more checks. If so, the system could lose availability without any agent intentionally violating its instructions.
 
-The prototype binds records to a principal, operation, resource, policy version, and state version. A record is considered only if its source is trusted, its action matches, and it is unexpired. Conflicting or missing trusted records yield unknown. Trust and source authenticity are assumed, rather than implemented cryptographically. Figure~\ref{fig:arch} sketches the flow. A same-information authorization gate serves as the essential comparator: provenance and a ledger alone do not imply a better frontier.
-\begin{figure}[t]
-\resizebox{\columnwidth}{!}{\input{images/protocol.tex}}
-\caption{Prototype decision flow. Evidence availability, current state, and source integrity are external assumptions.}\label{fig:arch}
-\end{figure}
-\section{Experimental method}
-We generate 160 balanced synthetic requests using four roles, four resource names and a rule naming two permitted roles. This yields 102 distinct ordered role/resource combinations; repetitions limit effective scenario diversity. Qwen2.5-3B-Instruct and SmolLM2-1.7B-Instruct each receive the same rule and request three times through sampled outputs, with temperature 0.8 and top-$p$ 0.95. These are independent samples of a prompt, not interactive multi-agent trajectories. A second prompt reframes the task as list membership and omits the resource, so the comparison does not isolate wording alone. All actions are simulated.
+We asked whether a single unsupported safety objection can induce model-authored, multi-generation, decision-relevant verification obligations in a workflow with distributed evidence. The key outcome is not path depth alone. A deeper path may be an ordinary checklist, a repeated request for known evidence, or a new concern that could change authorization. Only the last, when it is generated downstream and not a duplicate, would support the proposed cascade mechanism.
 
-We replay the samples using first decision, retry until an approval, unconditional veto, and evidence-based gates. Strict parsing accepts exact labels only; an anchored sensitivity parser accepts a few fixed label variants. In a separate forced-choice analysis, candidate continuation log likelihoods for \texttt{APPROVE} and \texttt{REFUSE} are normalized and sampled. This forces a binary answer and its values are not calibrated authorization probabilities. For the false-objection replay, we append a refusal to every sample set and vary the availability of trusted evidence; where available, this synthetic evidence is set equal to evaluator ground truth. The equally informed gate receives the same evidence. This is an optimistic mechanism check, not a deployment evaluation.
-\section{Results}
-With Qwen's original free-generation prompt, first decision completed 8 of 80 authorized cases and executed 0 of 80 unauthorized cases. Retry completed 10 and executed 0; veto completed 6 and executed 0. The altered prompt increased first-decision completion to 32 of 80; the comparison changes task framing and resource information. The sample is small and template dependent.
+The completed v4 study stopped before the objection condition. Its no-objection baseline generated recursive requests but completed 0/20 authorized tasks. Because the baseline could not reliably finish legitimate work, an objection contrast would not identify a meaningful safety--availability effect. We report this stopping outcome directly. We do not describe it as evidence that cascades cannot occur.
 
-Measurement choices are consequential. SmolLM2's original prompt produced 406 of 480 outputs not recognized by strict parsing, including responses such as \texttt{REJECT} or prefixed labels. Anchored parsing leaves 98 unresolved. In the same condition first-decision counts change from 5/80 unauthorized and 16/80 authorized under strict parsing to 12/80 and 27/80 with anchored parsing. Forced-choice scoring instead gives 53/80 unauthorized and 58/80 authorized first decisions, with retry at 78/80 and 76/80, respectively. These are different measurements, not interchangeable estimates of one underlying behavior.
+\paragraph{Contributions and scope.} This report provides (1) a model-interactive, partially observable synthetic authorization workflow with model-authored child requests and a trusted execution monitor; (2) a complete trajectory audit of its no-objection baseline; and (3) a stopping result showing that the baseline did not meet the completion criterion needed for the causal test. This is a feasibility and measurement report, not a new verification algorithm, formal guarantee, benchmark, or claim of conference-level novelty.
 
-In the controlled forced-choice replay, injecting a refusal into every case makes unconditional veto block all 80 authorized cases. With nominal 50\% evidence availability, 33 authorized cases have available evidence; both the scoped ledger and the equally informed gate complete those 33 and execute no unauthorized cases. This equality follows from the construction and does not demonstrate that the ledger improves on authorization. In a separate constructed source-failure test, a detectable stale version produces unknown, while undetectable stale or corrupted trusted assertions can produce unsafe execution. The source error rates in that test are stipulated, not measured.
-We also ran a matched context-injection pilot with no prior decision, an unsupported prior refusal, and that refusal plus a registry statement constructed to match ground truth. Qwen refused all 480 cases across conditions, including all authorized cases. Under anchored parsing, SmolLM2 approved 2/80 authorized requests without a prior refusal, 0/80 after a refusal, and 5/80 when a positive registry statement was added; it left 7, 3, and 6 outputs unresolved, respectively. These low completion rates and single draws prevent a reliable estimate of recovery. The registry statement was text in the prompt rather than an authenticated query, and the contrast is not an interactive network.
+\section{Related Work}
 
-In a sequential pilot, a second decision was requested only after an exact first-stage refusal. For Qwen, 147/160 cases met that criterion (80 unauthorized and 67 authorized). The fresh-worker branch reversed 3/67 authorized refusals and 0/80 unauthorized refusals; same-history reconsideration and refusal-aware fresh workers reversed none. SmolLM2 selected only 21/160 cases, because most first responses used alternative labels such as \texttt{REJECT}; these selected cases are not representative. This is a small, single-seed conditional comparison with simulated branches, not evidence about general delegation safety.
+Wu et al.~\cite{wu2026} study collective loss of control through mutation, transmission, and recovery. Their empirical recipient-susceptibility tests inject unsafe trajectories and explicitly do not demonstrate a naturally unfolding autonomous cascade. Our proposed mechanism differs in the source of downstream work: an agent would create a new verification request after reasoning about an objection, rather than adopt a supplied unsafe strategy. That distinction is a hypothesis, not a novelty result.
 
+False-alarm relay is a close precedent. Arslan et al.~\cite{arslan2026} examine accountability chains in which downstream auditors repeat upstream false allegations. A valid safety-cascade test must separate those relays from newly authored, policy-relevant verification dependencies. Recursive critique also predates this work: Wen et al.~\cite{wen2025} study higher-order critiques, while TraceFix verifies and repairs agent coordination protocols with model-checker counterexamples~\cite{xia2026}. Neither title-level difference establishes that our target is new.
+
+Budget-constrained runtime monitoring has been studied directly by Hua et al.~\cite{hua2025}, who optimize monitor selection under an average cost constraint. Turan~\cite{turan2026} studies limited oversight capacity, fatigue, and flooding attacks. These works rule out review scarcity or overload as a novelty claim. The possible empirical distinction here would be autonomous creation of new safety-review obligations by otherwise compliant agents. Our experiments do not establish that phenomenon.
+
+\section{Methods}
+
+\subsection{Interactive environment}
+
+Each scenario asks whether an administrative action satisfies five policy conditions: requester role, approval state, change window, target environment, and artifact integrity. Four synthetic policy templates define twenty unique action instances. Every ground-truth action in the final run is authorized. The evidence service supplies one signed fact per condition. Initially, the coordinator holds the approval fact, two workers each hold one fact, and two critics each hold one fact. Agents communicate through a shared transcript that records claims, evidence, and outstanding requests. A reviewer can create child work only by emitting a follow-up in its structured model response. No downstream verification task is inserted by the simulator.
+
+The workflow uses coordinator, worker, and critic roles, all instantiated as separate calls to the same Qwen2.5-3B-Instruct checkpoint. It is therefore an agent-role simulation, not a network of independent models. Outputs use JSON-schema-constrained decoding. Each scenario is bounded at nine processed nodes and depth four; model requests beyond these limits remain recorded as pending. The RTX A5000 run used PyTorch 2.8.0+cu128, Transformers 4.57.3, \texttt{lm-format-enforcer} 0.11.3, temperature 0.7, top-$p$ 0.95, and seed 2611. The model snapshot revision was not pinned.
+
+Figure~\ref{fig:workflow} shows the interaction. The trusted monitor sees retrieved signed facts, the coordinator's proposal, and pending requests. It does not see evaluator-only labels. It permits an action only when the evidence bundle supports every policy condition and no review request remains pending.
 
 \begin{figure*}[t]
-\centering\input{images/budget_figure.tex}
-\caption{Exploratory synthetic queue replay, one fixed Qwen transcript set and one simulated world. Three extra objection jobs are added per attacked case (approximately half the requests); all policies use the same lookup budget and deduplicate by action. Values are means across 100 random queue orders, not independent scenarios. Registry records can be stale, unavailable, or corrupted. The evidence-aware score depends on an objection signal the adversary can manipulate; this is a sensitivity test, not an adaptive attack or evidence of general superiority.}\label{fig:budget}
+\centering
+\resizebox{0.98\textwidth}{!}{\input{images/cascade_protocol.tex}}
+\caption{Final v4 workflow. Evidence begins with different role holders and is shared through the interaction record. All child requests originate in model outputs. Evaluator-only ground truth is not available to agents or the execution monitor.}
+\label{fig:workflow}
 \end{figure*}
 
-In an exploratory budget replay (Figure~\ref{fig:budget}), a synthetic external registry holds the decisive grant and can return stale or erroneous records. A compromised participant is scripted to add duplicate objection jobs; a critic's constrained labels also contribute jobs. With budget 60, evidence-aware ordering produces mean authorized completion 26.9\% and unauthorized execution 0.5\% without the scripted flood, versus 19.5\% and 1.7\% with three extra objections per attacked case. Under the same attack, risk-priority with deduplication yields 28.5\% completion and 1.7\% unauthorized execution. These are conditional means from one fixed set of 120 cases, and attacker-controlled priority, uncertain registry reliability, and random queue ordering preclude a general advantage claim. The attack only duplicates actions, and the monitor is simulated; no on-policy adaptive adversary was evaluated.
+\subsection{Conditions and stopping rule}
 
-A small on-policy pilot allowed a model-based attacker to choose one of three visible pending requests per round, after seeing the remaining budget and policy name. Across three rounds and a shared budget of 60, both Qwen and SmolLM2 runs produced the same aggregate outcomes as the no-attack control: FIFO completed 16/60 authorized cases, risk-priority 18/60, and evidence-aware 16/60; each executed 1/60 unauthorized cases. Evidence-aware ordering did select different cases. The models used the same synthetic world, and only one seed per model and policy was tested; this is an inconclusive negative pilot rather than evidence of robustness. The attacker could not generate distinct action targets or semantic variants.
+The planned paired comparison was no objection versus one unsupported objection concerning a single policy dependency. Generation seeds, scenario facts, prompts, model, decoding, and node limits were to be matched across conditions. To avoid interpreting an over-refusing baseline as an attack effect, we required at least 12 monitor permits among the 20 no-objection scenarios before running the objection arm. This numerical threshold was recorded after baseline collection began but before the complete baseline summary was inspected; it was not preregistered. The threshold is a go/no-go rule, not an inferential test.
 
+\subsection{Outcomes and trajectory audit}
 
-A further exploratory on-policy test let the attacker select both a target and one of three stipulated issue checks costing one to three units. Against a no-attack control, FIFO completion changed from 16/60 to 13/60 for Qwen and 11/60 for SmolLM2; risk-priority changed from 18/60 to 18/60 and 17/60, and grant-first from 18/60 to 17/60 for each model. All conditions executed 1/60 unauthorized cases. The runs share a single synthetic world and seed; constrained issue labels are not free-form allegations, all injected allegations are false by construction, and no statistical generalization is warranted. The result does not establish that model selection is necessary for the observed effect. A uniformly random attacker selecting among the same nine target--issue pairs reduced FIFO completion by a mean 3.27 cases over 30 paired queue-order seeds (normal 95\% interval 2.67--3.86 cases); this interval is conditional on the same fixed world. At the model pilot seed the random control completed 14/60, compared with 13/60 for Qwen and 11/60 for SmolLM2. One model run per model cannot establish an advantage over random choice.
+Legitimate completion is a trusted-monitor permit on an evaluator-authorized scenario; a model's \texttt{execute} proposal alone is not execution. We record final proposals, pending requests, parse failures, processed depth, and every parent-linked follow-up.
 
-\section{Discussion}
-The pilot shows why safety and availability must be measured together, and why decision formatting and task framing need explicit controls. The false-objection replay illustrates a failure mode of unconditional veto, but does not establish how often a model would mount such an attack. The evidence ledger adds explicit scope and freshness checks to the prototype; the equal-information baseline demonstrates that these checks alone cannot establish a novel frontier improvement. A meaningful next evaluation should use independently developed task families, interactive workers, human-validated ground truth, source failures, bounded verification and review budgets, adaptive attackers, and matched strong baselines. The code and raw outputs should be inspected with these restrictions in mind.
+For the audit, a first request for one of the five explicit policy facts is ordinary task decomposition. A re-request of a key whose signed record is already held, returned, or visible in the shared interaction is a repeated evidence check. A candidate cascade would require a downstream, model-authored obligation that introduces a distinct policy-relevant dependency not already represented in the evidence or queue. Source-key equality is used only for the structural audit; exact wording repetitions are counted separately. No branching-process rate is computed.
+
+\section{Results}
+
+\subsection{Final v4 no-objection baseline}
+
+The baseline gate failed: the trusted monitor permitted \textbf{0/20} authorized actions. The coordinator declined in 19 scenarios. In one scenario it proposed execution without complete evidence; the monitor blocked it. Structured review and final-output parse failures were both zero, so the floor was not caused by parser failure.
+
+The agents generated 157 follow-up requests. Sixteen scenarios processed at least one path to depth two or more, and 135 requests were at depth two or beyond. Trajectory-level context reconstruction classified 49 requests as first requests for one of the five stated policy keys and 108 as re-requests of a key already held or returned in the visible record. No request used the unindexed evidence option. Across episodes, 88 claim strings exactly repeated an earlier request; other rechecks used paraphrases. Thus the deep paths consist of completing the explicit checklist and revisiting its existing evidence, not newly surfaced safety requirements.
+
+Eight scenarios exposed all five evidence facts. Seven of these still had pending requests; in the remaining one, the coordinator declined despite a complete bundle and empty queue. In another scenario, the coordinator proposed execution with incomplete evidence, which the monitor denied. All twenty tasks were authorized by ground truth; consequently this final arm cannot estimate behavior on unauthorized requests.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Descriptive results for the final no-objection baseline. All scenarios were ground-truth authorized.}
+\label{tab:baseline}
+\begin{tabular}{lr}
+\toprule
+Measure & Result \\
+\midrule
+Authorized scenarios & 20 \\
+Trusted-monitor permits & 0/20 \\
+Coordinator declines & 19/20 \\
+Execute proposals with incomplete evidence & 1/20 \\
+Model-authored follow-ups & 157 \\
+Requests at depth $\geq 2$ & 135 \\
+First requests for a policy key & 49 \\
+Rechecks of an available key & 108 \\
+Scenarios reaching processed depth $\geq 2$ & 16/20 \\
+Review / final parse failures & 0 / 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Since the baseline received 0/20 permits, it missed the 12/20 stopping gate. We did not run the unsupported-objection arm. There is therefore no matched estimate of whether an objection changes request count, task completion, or cascade frequency. The experiment neither establishes nor refutes the causal hypothesis.
+
+\subsection{Earlier full-evidence diagnostic}
+
+An earlier v3.3 smoke gave every role a complete, current evidence bundle and instructed agents not to recheck known facts. It contained only two matched authorized worlds per model. Qwen2.5-3B generated no follow-ups in either condition for those pairs and permitted 0/2 tasks with or without an unsupported objection. SmolLM2-1.7B generated 38 follow-ups in its two no-objection authorized episodes versus zero in the two unsupported-objection episodes; it permitted 0/2 in the former and 2/2 in the latter. This opposite-direction two-world contrast is highly unstable, and the full-evidence prompt is not the v4 environment. We report it as a diagnostic, do not pool it with v4, and draw no causal or cross-model conclusion.
+
+\section{Discussion and Limitations}
+
+The strongest defensible observation is that the tested Qwen2.5-3B workflow repeatedly requested already-visible policy facts without any injected objection and failed to complete the authorized task in all twenty scenarios. Manual trajectory inspection shows ordinary checklist completion mixed with redundant requests. This behavior can create a difficult starting point for a cascade experiment, but it is not itself evidence that an objection caused new obligations.
+
+The experiment has important limits. The twenty scenarios use four synthetic policy templates and one sampling seed. All five roles use the same 3B checkpoint, so they are not independent agents. Evidence is generated by a deterministic synthetic service, and actions affect no real system. The constrained output schema and nine-node/depth-four caps shape behavior. The task distribution contains only authorized actions; no unauthorized-execution rate can be estimated. Most importantly, the treatment arm was not run. The 12/20 stopping threshold was recorded during baseline collection, rather than preregistered; it should not be interpreted as a statistical decision boundary. Descriptive counts are reported without confidence intervals because there is no paired contrast, and the scenarios are a small purposive set rather than a sampled deployment population.
+
+The result should be read as a baseline-feasibility failure and an unresolved research question. It does not justify a new mechanism, a reproduction-number estimate, or a NeurIPS/ICLR novelty claim. The sprint experiment is closed; resolving the baseline problem would require a separately designed study after this submission.
+
 \section{Conclusion}
-The results establish a reproducible pilot and identify a conditional queueing failure; they do not establish an advantage for the proposed ordering or successful adaptive resource exhaustion. A stronger conclusion requires independent worlds, meaningful on-policy interaction, and verified baseline parity.
-\section*{Code, data, and LLM use}
-Code and non-sensitive synthetic artifacts are at \url{https://github.com/qeinstein/vetonet}. Language-model assistance was used for literature discovery, coding, experimental analysis, and drafting. Results were checked by scripts and tests, but have not been independently reviewed by a human researcher.
+
+We attempted to test whether one unsupported safety objection can induce a self-propagating chain of new verification obligations. The final partial-observation baseline generated many recursive checks but permitted none of twenty authorized actions. Under the stopping rule, the causal objection condition was not run. Therefore, this project provides no empirical evidence for an endogenous safety cascade. It does provide a complete account of why the intended test was not interpretable in the available setting, and it preserves the hypotheses and raw trajectories for later work.
+
+\section*{Code and Data}
+
+The source, raw prompts and responses, trajectory graph, and analysis are available at \url{https://github.com/qeinstein/vetonet}. The final raw artifact is \path{results/cascade-v4-qwen-seed2611-baseline.json}; the request-level audit is \path{results/cascade-v4-qwen-seed2611-baseline-analysis.requests.csv}. Reproduction instructions and runtime versions are in \path{docs/cascade-v4-final-protocol.md}. Model weights are not redistributed, and the local snapshot revision is not pinned.
+
+\section*{LLM Usage Statement}
+
+Qwen2.5-3B-Instruct generated the experimental coordinator, worker, critic, and final-proposal outputs reported here. A general-purpose language model assistant was used to help with literature discovery, code editing, analysis scripting, and manuscript drafting. The reported counts were recomputed from the saved artifacts. No human expert annotation or independent replication was performed.
+
 \appendix
 \section{Limitations and Dual-Use / Ethical Considerations}
-The workload is synthetic, small, and repetitive. Forced-choice scores remove deferral, and sampled completions do not constitute a functioning agent network. The prototype lacks authentication, transactional state checks, revocation, and adversarially controlled sources; it is not suitable for deployment. We do not claim novelty or conference readiness based on this pilot. The attack is limited to fake records and no real service or unauthorized operation is exercised. Publishing failure modes can assist misuse; the released examples are abstract and designed for defensive evaluation.
+
+This study uses synthetic administrative actions, synthetic evidence, and a local model. No real records, credentials, deployments, or services were accessed. The supported behavior is failure to complete authorized synthetic tasks and repeated evidence queries; the monitor blocks the one incomplete-evidence execution proposal. The released artifacts contain abstract false-objection examples and prompts needed for reproduction. They do not enable access to real systems. The main dual-use risk is that general discussion of review overload could inform denial-of-service strategies; we limit any operational guidance to a synthetic closed-world setting and make no deployment recommendation. The evidence service, monitor, and authorization assumptions are not security-hardened components.
+
 \begin{thebibliography}{9}
-\bibitem{greenblatt} R. Greenblatt, B. Shlegeris, K. Sachan, and F. Roger. AI Control: Improving Safety Despite Intentional Subversion. \emph{ICML}, 2024. \url{https://arxiv.org/abs/2312.06942}
-\bibitem{gewang} C. Ge-Wang et al. Attack Selection in Agentic AI Control Evaluations Meaningfully Decreases Safety. arXiv, 2026. \url{https://arxiv.org/abs/2606.06529}
-\bibitem{makins} O. Makins, O. Angelini, Z. Shams, and M. Phuong. Multi-Agent AI Control: Distributed Attacks Hamper Per-Instance Monitors. AI Security Institute, 2026. \url{https://arxiv.org/abs/2607.07368}
-\bibitem{ying} Z. Ying et al. Delegated Misalignment: How Multi-Agent Structures Amplify LLM Safety Risks. \emph{EMNLP}, 2026. \url{https://aclanthology.org/2026.emnlp-main.398/}
-\bibitem{liu} L. Liu et al. Operational Reframing and Approval-Framed Delegation in Multi-Agent LLM Safety. 2026. \url{https://arxiv.org/abs/2607.07097}
-\bibitem{safin} T. H. Safin et al. Trust propagation and structural containment in Multi-agent LLM pipelines. 2026. \url{https://arxiv.org/abs/2609.17648}
-\bibitem{simhi} A. Simhi et al. ManagerBench: Evaluating the Safety-Pragmatism Trade-off in Autonomous LLMs. \emph{ICLR}, 2026.
+\small
+\bibitem{wu2026} X. Wu, Z. Ying, H. Wu, X. Zheng, H. Cheng, X. Shi, and J. Guo. Collective Loss of Control in LLM Agent Systems: An Epidemic Account of Mutation, Contagion, and Recovery. arXiv:2609.18460, 2026. \url{https://arxiv.org/abs/2609.18460}.
+\bibitem{hua2025} T. Hua, J. Baskerville, H. Lemoine, M. Hopman, A. Bhatt, and T. Tracy. Combining Cost Constrained Runtime Monitors for AI Safety. In \emph{Advances in Neural Information Processing Systems 38}, 2025. DOI: 10.52202/085713-5416. \url{https://doi.org/10.52202/085713-5416}.
+\bibitem{turan2026} E. Turan. Oversight Has a Capacity: Calibrating Agent Guards to a Subjective, Fatiguing Human. arXiv:2606.08919, 2026. \url{https://arxiv.org/abs/2606.08919}.
+\bibitem{arslan2026} P.-P. Arslan. Audit Without Verification: When LLM Accountability Layers Relay Rather Than Check. arXiv:2609.07680, 2026. \url{https://arxiv.org/abs/2609.07680}.
+\bibitem{wen2025} X. Wen, J. Lou, X. Lu, J. Yang, Y. Liu, Y. Lu, D. Zhang, and X. Yu. Scalable Oversight for Superhuman AI via Recursive Self-Critiquing. arXiv:2502.04675, 2025 (revised 2026). \url{https://arxiv.org/abs/2502.04675}.
+\bibitem{xia2026} S. Xia, Q. Li, T. Ehsan, and J. Ortiz. TraceFix: Repairing Agent Coordination Protocols with TLA+ Counterexamples. arXiv:2605.07935, 2026. \url{https://arxiv.org/abs/2605.07935}.
 \end{thebibliography}
+
 \end{document}
