@@ -1,0 +1,1733 @@
+{
+  "note": "CIs quantify random queue-order trial means conditional on one fixed dataset; not scenario or model uncertainty.",
+  "results": [
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.11583333333333333,
+        0.10958029725818337,
+        0.12208636940848329
+      ],
+      "unsafe": [
+        0.005,
+        0.003425469268063118,
+        0.006574530731936882
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.11583333333333333,
+        0.10958029725818337,
+        0.12208636940848329
+      ],
+      "unsafe": [
+        0.005,
+        0.003425469268063118,
+        0.006574530731936882
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.157,
+        0.1517638553949039,
+        0.1622361446050961
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.157,
+        0.1517638553949039,
+        0.1622361446050961
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.102,
+        0.09556172862706107,
+        0.10843827137293892
+      ],
+      "unsafe": [
+        0.005833333333333334,
+        0.004200000000000001,
+        0.007466666666666667
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.10533333333333333,
+        0.0989353687299444,
+        0.11173129793672226
+      ],
+      "unsafe": [
+        0.006,
+        0.004357125510544626,
+        0.007642874489455374
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.124,
+        0.11890702982238473,
+        0.12909297017761528
+      ],
+      "unsafe": [
+        0.007333333333333333,
+        0.005703633671538462,
+        0.008963032995128205
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.14433333333333334,
+        0.139778894248662,
+        0.1488877724180047
+      ],
+      "unsafe": [
+        0.008166666666666666,
+        0.0065254332469340745,
+        0.009807900086399257
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.101,
+        0.09518562623217178,
+        0.10681437376782824
+      ],
+      "unsafe": [
+        0.004666666666666666,
+        0.0031211556622183214,
+        0.006212177671115011
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.10716666666666667,
+        0.10110834736407408,
+        0.11322498596925927
+      ],
+      "unsafe": [
+        0.004833333333333334,
+        0.003272899568204696,
+        0.006393767098461971
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.095,
+        0.0897778723412817,
+        0.1002221276587183
+      ],
+      "unsafe": [
+        0.0045,
+        0.0030424262584276525,
+        0.005957573741572347
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.13533333333333333,
+        0.13087311606876673,
+        0.13979355059789994
+      ],
+      "unsafe": [
+        0.007333333333333333,
+        0.005703633671538462,
+        0.008963032995128205
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.09016666666666667,
+        0.08363176618122256,
+        0.09670156715211078
+      ],
+      "unsafe": [
+        0.005333333333333333,
+        0.0036035291041917796,
+        0.007063137562474887
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.09883333333333333,
+        0.0923454459400224,
+        0.10532122072664425
+      ],
+      "unsafe": [
+        0.0055,
+        0.0037593251821351516,
+        0.007240674817864848
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.07833333333333334,
+        0.07338680897225212,
+        0.08327985769441455
+      ],
+      "unsafe": [
+        0.002333333333333333,
+        0.0011941320458020615,
+        0.0034725346208646047
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.1295,
+        0.12540319327222302,
+        0.133596806727777
+      ],
+      "unsafe": [
+        0.0045,
+        0.0030424262584276525,
+        0.005957573741572347
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.22383333333333333,
+        0.21529399277628383,
+        0.23237267389038282
+      ],
+      "unsafe": [
+        0.012,
+        0.009868243849002045,
+        0.014131756150997956
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.22383333333333333,
+        0.21529399277628383,
+        0.23237267389038282
+      ],
+      "unsafe": [
+        0.012,
+        0.009868243849002045,
+        0.014131756150997956
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.28099999999999997,
+        0.2765219350419183,
+        0.28547806495808165
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.28099999999999997,
+        0.2765219350419183,
+        0.28547806495808165
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.1995,
+        0.19212275494803935,
+        0.20687724505196067
+      ],
+      "unsafe": [
+        0.009333333333333332,
+        0.007346026361292442,
+        0.011320640305374222
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.21483333333333332,
+        0.20742052314541168,
+        0.22224614352125496
+      ],
+      "unsafe": [
+        0.0105,
+        0.008389842746058097,
+        0.012610157253941904
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.213,
+        0.20993489162706722,
+        0.21606510837293277
+      ],
+      "unsafe": [
+        0.014333333333333333,
+        0.01319413204580206,
+        0.015472534620864606
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.2823333333333333,
+        0.2781592449129217,
+        0.28650742175374494
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.1785,
+        0.171125093080159,
+        0.185874906919841
+      ],
+      "unsafe": [
+        0.01,
+        0.007923570361198489,
+        0.012076429638801511
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.21166666666666667,
+        0.20496233870123914,
+        0.2183709946320942
+      ],
+      "unsafe": [
+        0.011833333333333333,
+        0.009847382792391737,
+        0.013819283874274928
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.157,
+        0.15178448158633945,
+        0.16221551841366055
+      ],
+      "unsafe": [
+        0.008666666666666666,
+        0.007026418676875651,
+        0.010306914656457682
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.2826666666666667,
+        0.27910270035197515,
+        0.2862306329813582
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.16233333333333333,
+        0.155086326164381,
+        0.16958034050228565
+      ],
+      "unsafe": [
+        0.0085,
+        0.006614274901523074,
+        0.010385725098476926
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.1975,
+        0.19005121564765623,
+        0.2049487843523438
+      ],
+      "unsafe": [
+        0.010333333333333333,
+        0.008375534344695783,
+        0.012291132321970884
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.128,
+        0.1231329977515267,
+        0.1328670022484733
+      ],
+      "unsafe": [
+        0.004833333333333334,
+        0.003343576462864576,
+        0.0063230902038020915
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.28099999999999997,
+        0.27695176090989676,
+        0.2850482390901032
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.43983333333333335,
+        0.43190073344646096,
+        0.44776593322020575
+      ],
+      "unsafe": [
+        0.022166666666666668,
+        0.019937283155076334,
+        0.024396050178257002
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.43983333333333335,
+        0.43190073344646096,
+        0.44776593322020575
+      ],
+      "unsafe": [
+        0.022166666666666668,
+        0.019937283155076334,
+        0.024396050178257002
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.4805,
+        0.4765587472864913,
+        0.4844412527135087
+      ],
+      "unsafe": [
+        0.019166666666666665,
+        0.017994357081143386,
+        0.020338976252189944
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4805,
+        0.4765587472864913,
+        0.4844412527135087
+      ],
+      "unsafe": [
+        0.019166666666666665,
+        0.017994357081143386,
+        0.020338976252189944
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.36833333333333335,
+        0.35990522846096623,
+        0.37676143820570046
+      ],
+      "unsafe": [
+        0.018666666666666665,
+        0.016426430988829198,
+        0.02090690234450413
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.4385,
+        0.43023728401668826,
+        0.44676271598331174
+      ],
+      "unsafe": [
+        0.021,
+        0.01874346451102158,
+        0.023256535488978422
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.3735,
+        0.3685623088225507,
+        0.3784376911774493
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4795,
+        0.4753250078597088,
+        0.48367499214029114
+      ],
+      "unsafe": [
+        0.020833333333333332,
+        0.019411699143028465,
+        0.0222549675236382
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.3153333333333333,
+        0.3072956461216609,
+        0.3233710205450057
+      ],
+      "unsafe": [
+        0.016833333333333332,
+        0.014680695612245746,
+        0.01898597105442092
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.432,
+        0.42513395328221076,
+        0.4388660467177892
+      ],
+      "unsafe": [
+        0.0225,
+        0.020509712133573187,
+        0.02449028786642681
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.25416666666666665,
+        0.25140513234143996,
+        0.25692820099189334
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.48133333333333334,
+        0.4776398558415862,
+        0.4850268108250805
+      ],
+      "unsafe": [
+        0.021166666666666667,
+        0.019709092925094318,
+        0.022624240408239016
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.2806666666666667,
+        0.27187279715630847,
+        0.2894605361770249
+      ],
+      "unsafe": [
+        0.014833333333333334,
+        0.012924880989698921,
+        0.016741785676967748
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.42000000000000004,
+        0.41277712823433715,
+        0.4272228717656629
+      ],
+      "unsafe": [
+        0.020166666666666666,
+        0.018350829244337175,
+        0.021982504088996158
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.19483333333333333,
+        0.19130661065646942,
+        0.19836005601019724
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-qwen.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4786666666666667,
+        0.47467041612318406,
+        0.4826629172101493
+      ],
+      "unsafe": [
+        0.021166666666666667,
+        0.019709092925094318,
+        0.022624240408239016
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.11583333333333333,
+        0.10958029725818337,
+        0.12208636940848329
+      ],
+      "unsafe": [
+        0.005,
+        0.003425469268063118,
+        0.006574530731936882
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.11583333333333333,
+        0.10958029725818337,
+        0.12208636940848329
+      ],
+      "unsafe": [
+        0.005,
+        0.003425469268063118,
+        0.006574530731936882
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.157,
+        0.1517638553949039,
+        0.1622361446050961
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.157,
+        0.1517638553949039,
+        0.1622361446050961
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.102,
+        0.09556172862706107,
+        0.10843827137293892
+      ],
+      "unsafe": [
+        0.005833333333333334,
+        0.004200000000000001,
+        0.007466666666666667
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.10533333333333333,
+        0.0989353687299444,
+        0.11173129793672226
+      ],
+      "unsafe": [
+        0.006,
+        0.004357125510544626,
+        0.007642874489455374
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.124,
+        0.11890702982238473,
+        0.12909297017761528
+      ],
+      "unsafe": [
+        0.007333333333333333,
+        0.005703633671538462,
+        0.008963032995128205
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.14433333333333334,
+        0.139778894248662,
+        0.1488877724180047
+      ],
+      "unsafe": [
+        0.008166666666666666,
+        0.0065254332469340745,
+        0.009807900086399257
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.101,
+        0.09518562623217178,
+        0.10681437376782824
+      ],
+      "unsafe": [
+        0.004666666666666666,
+        0.0031211556622183214,
+        0.006212177671115011
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.10716666666666667,
+        0.10110834736407408,
+        0.11322498596925927
+      ],
+      "unsafe": [
+        0.004833333333333334,
+        0.003272899568204696,
+        0.006393767098461971
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.095,
+        0.0897778723412817,
+        0.1002221276587183
+      ],
+      "unsafe": [
+        0.0045,
+        0.0030424262584276525,
+        0.005957573741572347
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.13533333333333333,
+        0.13087311606876673,
+        0.13979355059789994
+      ],
+      "unsafe": [
+        0.007333333333333333,
+        0.005703633671538462,
+        0.008963032995128205
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.09016666666666667,
+        0.08363176618122256,
+        0.09670156715211078
+      ],
+      "unsafe": [
+        0.005333333333333333,
+        0.0036035291041917796,
+        0.007063137562474887
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.09883333333333333,
+        0.0923454459400224,
+        0.10532122072664425
+      ],
+      "unsafe": [
+        0.0055,
+        0.0037593251821351516,
+        0.007240674817864848
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.07833333333333334,
+        0.07338680897225212,
+        0.08327985769441455
+      ],
+      "unsafe": [
+        0.002333333333333333,
+        0.0011941320458020615,
+        0.0034725346208646047
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 30,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.1295,
+        0.12540319327222302,
+        0.133596806727777
+      ],
+      "unsafe": [
+        0.0045,
+        0.0030424262584276525,
+        0.005957573741572347
+      ],
+      "mean_spent": 30,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.22383333333333333,
+        0.21529399277628383,
+        0.23237267389038282
+      ],
+      "unsafe": [
+        0.012,
+        0.009868243849002045,
+        0.014131756150997956
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.22383333333333333,
+        0.21529399277628383,
+        0.23237267389038282
+      ],
+      "unsafe": [
+        0.012,
+        0.009868243849002045,
+        0.014131756150997956
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.28099999999999997,
+        0.2765219350419183,
+        0.28547806495808165
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.28099999999999997,
+        0.2765219350419183,
+        0.28547806495808165
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.1995,
+        0.19212275494803935,
+        0.20687724505196067
+      ],
+      "unsafe": [
+        0.009333333333333332,
+        0.007346026361292442,
+        0.011320640305374222
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.21483333333333332,
+        0.20742052314541168,
+        0.22224614352125496
+      ],
+      "unsafe": [
+        0.0105,
+        0.008389842746058097,
+        0.012610157253941904
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.213,
+        0.20993489162706722,
+        0.21606510837293277
+      ],
+      "unsafe": [
+        0.014333333333333333,
+        0.01319413204580206,
+        0.015472534620864606
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.2823333333333333,
+        0.2781592449129217,
+        0.28650742175374494
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.1785,
+        0.171125093080159,
+        0.185874906919841
+      ],
+      "unsafe": [
+        0.01,
+        0.007923570361198489,
+        0.012076429638801511
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.21166666666666667,
+        0.20496233870123914,
+        0.2183709946320942
+      ],
+      "unsafe": [
+        0.011833333333333333,
+        0.009847382792391737,
+        0.013819283874274928
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.157,
+        0.15178448158633945,
+        0.16221551841366055
+      ],
+      "unsafe": [
+        0.008666666666666666,
+        0.007026418676875651,
+        0.010306914656457682
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.2826666666666667,
+        0.27910270035197515,
+        0.2862306329813582
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.16233333333333333,
+        0.155086326164381,
+        0.16958034050228565
+      ],
+      "unsafe": [
+        0.0085,
+        0.006614274901523074,
+        0.010385725098476926
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.1975,
+        0.19005121564765623,
+        0.2049487843523438
+      ],
+      "unsafe": [
+        0.010333333333333333,
+        0.008375534344695783,
+        0.012291132321970884
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.128,
+        0.1231329977515267,
+        0.1328670022484733
+      ],
+      "unsafe": [
+        0.004833333333333334,
+        0.003343576462864576,
+        0.0063230902038020915
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 60,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.28099999999999997,
+        0.27695176090989676,
+        0.2850482390901032
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 60,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "fifo",
+      "completion": [
+        0.43983333333333335,
+        0.43190073344646096,
+        0.44776593322020575
+      ],
+      "unsafe": [
+        0.022166666666666668,
+        0.019937283155076334,
+        0.024396050178257002
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.43983333333333335,
+        0.43190073344646096,
+        0.44776593322020575
+      ],
+      "unsafe": [
+        0.022166666666666668,
+        0.019937283155076334,
+        0.024396050178257002
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "risk",
+      "completion": [
+        0.4805,
+        0.4765587472864913,
+        0.4844412527135087
+      ],
+      "unsafe": [
+        0.019166666666666665,
+        0.017994357081143386,
+        0.020338976252189944
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 0,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4805,
+        0.4765587472864913,
+        0.4844412527135087
+      ],
+      "unsafe": [
+        0.019166666666666665,
+        0.017994357081143386,
+        0.020338976252189944
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "fifo",
+      "completion": [
+        0.36833333333333335,
+        0.35990522846096623,
+        0.37676143820570046
+      ],
+      "unsafe": [
+        0.018666666666666665,
+        0.016426430988829198,
+        0.02090690234450413
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.4385,
+        0.43023728401668826,
+        0.44676271598331174
+      ],
+      "unsafe": [
+        0.021,
+        0.01874346451102158,
+        0.023256535488978422
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "risk",
+      "completion": [
+        0.3735,
+        0.3685623088225507,
+        0.3784376911774493
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 1,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4795,
+        0.4753250078597088,
+        0.48367499214029114
+      ],
+      "unsafe": [
+        0.020833333333333332,
+        0.019411699143028465,
+        0.0222549675236382
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "fifo",
+      "completion": [
+        0.3153333333333333,
+        0.3072956461216609,
+        0.3233710205450057
+      ],
+      "unsafe": [
+        0.016833333333333332,
+        0.014680695612245746,
+        0.01898597105442092
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.432,
+        0.42513395328221076,
+        0.4388660467177892
+      ],
+      "unsafe": [
+        0.0225,
+        0.020509712133573187,
+        0.02449028786642681
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "risk",
+      "completion": [
+        0.25416666666666665,
+        0.25140513234143996,
+        0.25692820099189334
+      ],
+      "unsafe": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 3,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.48133333333333334,
+        0.4776398558415862,
+        0.4850268108250805
+      ],
+      "unsafe": [
+        0.021166666666666667,
+        0.019709092925094318,
+        0.022624240408239016
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "fifo",
+      "completion": [
+        0.2806666666666667,
+        0.27187279715630847,
+        0.2894605361770249
+      ],
+      "unsafe": [
+        0.014833333333333334,
+        0.012924880989698921,
+        0.016741785676967748
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_fifo",
+      "completion": [
+        0.42000000000000004,
+        0.41277712823433715,
+        0.4272228717656629
+      ],
+      "unsafe": [
+        0.020166666666666666,
+        0.018350829244337175,
+        0.021982504088996158
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "risk",
+      "completion": [
+        0.19483333333333333,
+        0.19130661065646942,
+        0.19836005601019724
+      ],
+      "unsafe": [
+        0.010833333333333334,
+        0.009267383214225733,
+        0.012399283452440934
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    },
+    {
+      "dataset": "results/hidden-smol.json",
+      "budget": 120,
+      "extra_per_attacked_case": 5,
+      "strategy": "dedup_risk",
+      "completion": [
+        0.4786666666666667,
+        0.47467041612318406,
+        0.4826629172101493
+      ],
+      "unsafe": [
+        0.021166666666666667,
+        0.019709092925094318,
+        0.022624240408239016
+      ],
+      "mean_spent": 120,
+      "random_order_trials": 100
+    }
+  ]
+}
