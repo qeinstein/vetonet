@@ -1,4 +1,8 @@
-# Experimental design (working draft)
+# Archived experiment history
+
+**This file documents earlier VetoNet refusal-propagation and verification-budget pilots. Its process IDs and statements about active runs are historical and must not be used as current runtime state.** The current research question, evidence, and runnable cascade design are documented in [the cascade runbook](../docs/cascade-runbook.md), [research status](../docs/cascade-research.md), and [v3.2 protocol](../docs/cascade-network-v3.md).
+
+The studies below are preserved as historical results and baselines. They do not establish the new endogenous-cascade hypothesis.
 
 The sprint's example already proposes refusal shopping, so this study extends it with false objections and independently checked evidence. All actions are simulated; no real records or services are changed.
 
